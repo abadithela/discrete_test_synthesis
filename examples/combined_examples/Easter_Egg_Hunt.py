@@ -28,7 +28,7 @@ from time import gmtime, strftime
 
 def run_easter_egg_example():
     # % ============== Configuring File Names to Save Data: ============== %
-    file_path = "combined_examples/Easter_Egg_Hunt/"
+    file_path = "examples/combined_examples/Easter_Egg_Hunt/"
     fname_matrix = file_path + "static_obstacle_matrix_#.dat"
     fname_grid_w_prop = file_path + "initial_grid_#.png"
     fname_grid_w_static_obs = file_path + "grid_static_obs_#.png"

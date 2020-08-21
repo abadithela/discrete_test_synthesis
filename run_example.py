@@ -6,4 +6,4 @@ from examples.static_examples import Illustrate
 # Easter_Egg_Hunt.run_easter_egg_example()
 # dyn_example1.gridworld_example() # This example will have simulations saved in the Dynamic_Obstacles folder
 
-# Illustrate.static_example()
+ Illustrate.static_example()
