@@ -184,8 +184,8 @@ def run_easter_egg_example():
 
     # Setting weights:
     # coverage_props_list = [(lambda ns, ne: ns==33 or ns==18, 1)]
-    coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18 and ne==3, 1)] # this works all the time although the seocnd proposition is never covered
-    # coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18, 1)] # this works roughly 50% of the time
+    # coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18 and ne==3, 1)] # this works all the time although the seocnd proposition is never covered
+    coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18 and (ne==1 or ne==3), 1)] # this works roughly 50% of the time
     # coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18, 1)] # 
     coverage_props = dict(coverage_props_list)
     Game_Graph.set_vertex_weight(coverage_props)
