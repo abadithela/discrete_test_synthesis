@@ -141,6 +141,7 @@ def run_easter_egg_example():
     Tsys = dict(Tsys_list)
     sys_transitions = []
     env_transitions = []
+
     for key, val in Tsys.items():
         sys_transitions.append(val)
     Tenv_list = [(1, [1,3,2]), (2,[2]), (3,[1,3]), (4, [4])]
@@ -150,6 +151,8 @@ def run_easter_egg_example():
     unsafe = [[3, 24], [4, 24], [2, 34], [4, 34]]
     Ns = len(sys_transitions)
     Ne = len(env_transitions)
+    
+    #------------------------------------------------------------------------------------------------------------------#
     ## --------------------------------------- Setting game graph: -------------------------------------------------- ##
     Game_Graph = ggg(static_obstacles[0], sys_transitions, env_transitions, unsafe)
 
@@ -181,7 +184,9 @@ def run_easter_egg_example():
 
     # Setting weights:
     # coverage_props_list = [(lambda ns, ne: ns==33 or ns==18, 1)]
-    coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18, 1)]
+    coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18 and ne==3, 1)] # this works all the time although the seocnd proposition is never covered
+    # coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18, 1)] # this works roughly 50% of the time
+    # coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18, 1)] # 
     coverage_props = dict(coverage_props_list)
     Game_Graph.set_vertex_weight(coverage_props)
 
@@ -211,6 +216,7 @@ def run_easter_egg_example():
         return Wenv, Val_env
 
     Wenv, Val_env = compute_env_winning_set(coverage_props_list)
+    pdb.set_trace()
     # ---------------------- This is just for debugging ------------------------------------- #
     # Looking at the nodes:
     Wenv_max = Wenv[-1]
