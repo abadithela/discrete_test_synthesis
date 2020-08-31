@@ -122,7 +122,11 @@ def static_example():
     fig2, ax2, im2 = GW.base_plot(fig_num)
 
     # Creating static obstacles and plotting them:
-    cut_transitions, static_obstacles = test_config.generate_static_obstacles(nNodes_to_cover, sys_reach)
+    via = "not_labels"
+    if via == "labels":
+        static_obstacles = test_config.generate_static_obstacles_via_labels(nNodes_to_cover, sys_reach)
+    else:
+        cut_transitions, static_obstacles = test_config.generate_static_obstacles(nNodes_to_cover, sys_reach)
     test_matrix = test_config.update_matrix(static_obstacles)
     # ani = test_config.animate_static(fig2, ax2, im2, test_matrix)
     fig2, ax2, im2 = test_config.base_plot(fig2, ax2, im2, nNodes_to_cover, sys_reach) # Constructing the base plot
