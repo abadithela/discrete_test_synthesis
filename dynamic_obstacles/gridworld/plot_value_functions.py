@@ -22,10 +22,10 @@ from . import Game_graph_class
 
 def plot_env_value_function(GW, GameGraph, k, fignum):
     fig, ax, im = GW.base_plot(fignum) # Drawing the base plot of the grid world
-    Val_env_k = GameGraph.value_function('e'):
+    Val_env_k = GameGraph.Val_env
     return fig, ax, im
 
 def plot_sys_value_function(GW, GameGraph, k, fignum):
     fig, ax, im = GW.base_plot(fignum) # Drawing the base plot of the grid world
-    Val_sys_k = GameGraph.value_function('s'):
+    Val_sys = GameGraph.Val_sys:
     return fig, ax, im

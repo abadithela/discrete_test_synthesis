@@ -19,23 +19,21 @@ import pdb
 import inspect
 from matplotlib import animation
 
-from base_classes.gridworld_class import GridWorld as gc
-from base_classes.Player_class import Player as pc
-from base_classes.Game_graph_class import GameGraph as gg
-from base_classes.General_Game_Graph_class import GeneralGameGraph as ggg
-from base_classes.test_run_configuration import test_run_configuration as trc
+from dynamic_obstacles.gridworld.gridworld_class import GridWorld as gc
+from dynamic_obstacles.transitions.General_Game_Graph_class import GeneralGameGraph as ggg
+from static_obstacles.gridworlds.test_run_configuration import test_run_configuration as trc
 from time import gmtime, strftime
 
 def run_easter_egg_example():
     # % ============== Configuring File Names to Save Data: ============== %
-    file_path = "examples/combined_examples/Easter_Egg_Hunt/"
-    fname_matrix = file_path + "static_obstacle_matrix_#.dat"
-    fname_grid_w_prop = file_path + "initial_grid_#.png"
-    fname_grid_w_static_obs = file_path + "grid_static_obs_#.png"
-    fname_propositions = file_path + "propositions_#.dat"
-    fname_goal = file_path + "goal_#.dat"
-    fname_ani_or = file_path + "test_ani_or_#.avi"                # Animation for or propositions
-    fname_ani_and = file_path + "test_ani_or_#.avi"                # Animation for AND propositions
+    file_path = "examples/easter_egg_hunt/"
+    fname_matrix = file_path + "Data"+"/static_obstacle_matrix_#.dat"
+    fname_grid_w_prop = file_path + "Figures" + "/initial_grid_#.png"
+    fname_grid_w_static_obs = file_path + "Figures" + "/grid_static_obs_#.png"
+    fname_propositions = file_path + "Data"+"/propositions_#.dat"
+    fname_goal = file_path + "Data"+"/goal_#.dat"
+    fname_ani_or = file_path + "Animations" +"/test_ani_or_#.avi"                # Animation for or propositions
+    fname_ani_and = file_path + "Animations" + "/test_ani_or_#.avi"                # Animation for AND propositions
     fname_matrix = fname_matrix.replace("#", strftime("%Y_%m_%d_%H_%M_%S", gmtime()))
     fname_propositions = fname_propositions.replace("#", strftime("%Y_%m_%d_%H_%M_%S", gmtime()))
     fname_goal = fname_goal.replace("#", strftime("%Y_%m_%d_%H_%M_%S", gmtime()))
@@ -177,11 +175,10 @@ def run_easter_egg_example():
     win_agent = 's'
     Wsys2 = Game_Graph.win_reach(win_agent, goal_vertices, quant_env, quant_sys)
     Val_sys = Game_Graph.get_value_function(win_agent) # System Value Function
-    # pdb.set_trace()
 
     # Setting weights:
-    # coverage_props_list = [(lambda ns, ne: ns==33 or ns==18, 1)]
-    coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 2), (lambda ns, ne: ns==18, 1)]
+    coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 1), (lambda ns, ne:ns==18, 1)]
+    # coverage_props_list = [(lambda ns, ne: ns==33 and ne==2, 10), (lambda ns, ne: ns==18 and ne==3, 1)]
     coverage_props = dict(coverage_props_list)
     Game_Graph.set_vertex_weight(coverage_props)
 
@@ -200,8 +197,10 @@ def run_easter_egg_example():
     def compute_env_winning_set(coverage_props_list):
         coverage_props = dict(coverage_props_list)
         Game_Graph.set_vertex_weight(coverage_props)
-        env_goal_nodes = set_env_goal_nodes(coverage_props_list)
+        # env_goal_nodes = set_env_goal_nodes([coverage_props_list[-1]]) # Interested in the last proposition first
+        env_goal_nodes = set_env_goal_nodes(coverage_props_list) # Interested in all propositions
         goal_vertices = Game_Graph.set_win_states(env_goal_nodes)
+
         # Robust Pre for system winning set computation:
         quant_env = 'exists'
         quant_sys = 'exists'
@@ -387,4 +386,5 @@ def run_easter_egg_example():
     # writervideo = animation.FFMpegWriter(fps=60)
     # anim2.save(fname_ani_and, writer=writervideo)
     plt.show()
+    return Wsys2, Wenv, Val_sys, Val_env, GW, Game_Graph
 

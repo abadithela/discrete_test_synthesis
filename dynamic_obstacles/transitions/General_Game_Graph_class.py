@@ -301,7 +301,6 @@ class GeneralGameGraph:
                             min_successor = successors[min_ii]
                             # min_successor = successors[Val_successors.index(min(Val_successors))]
                             self.Val_env[v] = self.Val_env[min_successor]
-                            pdb.set_trace()
         if ptype == 'e':
             for v in W0:
                 if(self.Val_env_set[v] == 0):

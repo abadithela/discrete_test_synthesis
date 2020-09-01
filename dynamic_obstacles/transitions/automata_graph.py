@@ -22,7 +22,7 @@ import pdb
 
 class GeneralGameGraph:
     def __init__(self, G, Ns, Ne, static_obstacles):
-        self.G = nx.DiGraph()
+        self.G = G
         self.static_obs = static_obstacles.copy()
         # self.static_grid = nx.Graph() # Graph based on just the grid and not the 2-player game graph with any of the players involved
         # self.env_pEdges = env_transitions.copy()
@@ -34,7 +34,7 @@ class GeneralGameGraph:
         self.E = self.G.edges()
         self.U = None
         # self.vertices()     
-        # self.unsafe_states(unsafe)
+        self.unsafe_states([])
         # self.edges() # This sets the edges based on the data collected from vertices.
         # self.G.add_edges_from(self.E)
         # self.G.add_nodes_from(self.V)
@@ -159,11 +159,8 @@ class GeneralGameGraph:
     def unsafe_states(self, unsafe):
         unsafe_states = []
         # Unsafe states from system being in the same state as a static obstacle:
-        for ns in self.static_obs:
-            for ne in range(1, self.Ne+1):
-                s = self.state(self.Ns, self.Ne, ns, ne)
-                unsafe_states.extend(["v1_"+str(s)]) # Environment action vertices
-                unsafe_states.extend(["v2_"+str(s)]) # System action vertices
+        for v in self.static_obs:
+                unsafe_states.append(v) # Appending static obstacles to unsafe states 
 
         # Unsafe states from system and environment being in the same state:
         for unsafe_combo in unsafe:
