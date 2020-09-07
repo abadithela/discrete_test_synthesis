@@ -385,6 +385,6 @@ def run_easter_egg_example():
     # anim2 = GW.animate_test_run_gg(test_run_and_cells, fig, ax, skip_transitions)
     # writervideo = animation.FFMpegWriter(fps=60)
     # anim2.save(fname_ani_and, writer=writervideo)
-    plt.show()
-    return Wsys2, Wenv, Val_sys, Val_env, GW, Game_Graph
+    # plt.show()
+    return GW, Game_Graph, nNodes_to_cover, sys_reach, test_config, test_matrix
 
